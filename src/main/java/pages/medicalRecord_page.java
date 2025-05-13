@@ -34,15 +34,18 @@ public class medicalRecord_page extends StartupPage {
 	public By getButtonLocatorsNext = By.xpath("//button[contains(text(),'" + "Next" + "')]");
 	public By getButtonLocatorsLast = By.xpath("//button[contains(text(),'" + "Last" + "')]");
 //	TC-4 Locators
+	public By getAnchorTagLocatorReports = By.xpath("//a[contains(text(),'" + "Reports" + "')]");
+	public By getAnchorTagLocatorBirthList = By.xpath("//a[contains(text(),'" + "Birth List" + "')]");
+	public By getAnchorTagLocatorDeathList = By.xpath("//a[contains(text(),'" + "Death List" + "')]");
+	public By getAnchorTagLocatorEmergencyPatientList = By.xpath("//a[contains(text(),'" + "Emergency Patient List" + "')]");
+	public By getAnchorTagLocatorMRInpatientList = By.xpath("//a[contains(text(),'" + "MR Inpatient List" + "')]");
 //	Write the required locators here
 //	TC-5 Locators
 	public By getRowsOfResult = By.xpath("//div[not(contains(@class,'hidden'))]/div[@row-id]");
 //	TC-6 Locators
-	public By getAnchorTagLocatorMRInpatientList = By.xpath("//a[contains(text(),'" + "MR Inpatient List" + "')]");
 	public By getActualAppointmentDates = By.xpath("//div[@role='gridcell' and @col-id='VisitDate']");
 	public By getDepartmentFilterDropdown = By.cssSelector("select#departmentlist");	
 	public By getActualDepartmentsInResult = By.xpath("//div[@role='gridcell' and @col-id='DepartmentName']");
-	
 	public By getDateRangeButton = By.cssSelector("td [data-hover='dropdown']");
 //TC-7 Locators
 	public By getAnchorTagLocatorLast1Week = By.xpath("//a[contains(text(),'" + "Last 1 Week" + "')]");	
@@ -295,17 +298,47 @@ public class medicalRecord_page extends StartupPage {
 	 */
 	public boolean verifyUrlContains(String buttonName, String urlTextToVerify) throws Exception {
 		try {
-			// Locate the button using its text
-			WebElement buttonToClick = commonEvents.findElement(getAnchorTagLocatorMROutpatientList);
-
-			// Highlight the button and click on it
-			commonEvents.highlight(buttonToClick).click(buttonToClick);
-
-			// Wait for the URL to contain the specified text
+			
+			if (buttonName == "MR Outpatient List") {
+			WebElement buttonToMROutpatientList = commonEvents.findElement(getAnchorTagLocatorMROutpatientList);
+			commonEvents.highlight(buttonToMROutpatientList).click(buttonToMROutpatientList);
 			commonEvents.waitForUrlContains("OutpatientList", 0);
-
-			// Return true if the URL contains the specified text
 			return true;
+			}
+			if (buttonName == "Reports") {
+			WebElement buttonToReports = commonEvents.findElement(getAnchorTagLocatorReports);
+			commonEvents.highlight(buttonToReports).click(buttonToReports);
+			commonEvents.waitForUrlContains("ReportList", 0);
+			return true;
+			}
+			else if (buttonName == "Birth List") {
+			WebElement buttonToBirthList = commonEvents.findElement(getAnchorTagLocatorBirthList);
+			commonEvents.highlight(buttonToBirthList).click(buttonToBirthList);
+			commonEvents.waitForUrlContains("BirthList", 0);
+			return true;
+			}
+			else if (buttonName == "Death List") {
+			WebElement buttonToDeathList = commonEvents.findElement(getAnchorTagLocatorDeathList);
+			commonEvents.highlight(buttonToDeathList).click(buttonToDeathList);
+			commonEvents.waitForUrlContains("DeathList", 0);
+			return true;
+			}
+			else if (buttonName == "Emergency Patient List") {
+			WebElement buttonToEmergencyPatientList = commonEvents.findElement(getAnchorTagLocatorEmergencyPatientList);
+			commonEvents.highlight(buttonToEmergencyPatientList).click(buttonToEmergencyPatientList);
+			commonEvents.waitForUrlContains("EmergencyPatientList", 0);
+			return true;
+			}
+			else if (buttonName == "MR Inpatient List") {
+			WebElement buttonToInpatientList = commonEvents.findElement(getAnchorTagLocatorMRInpatientList);
+			commonEvents.highlight(buttonToInpatientList).click(buttonToInpatientList);
+			commonEvents.waitForUrlContains("InpatientList", 0);
+			return true;
+			}
+			else {
+				return false;
+			}
+		
 		} catch (Exception e) {
 			// Throw the exception with context if an error occurs
 			throw new Exception("Failed to verify that the URL contains the specified text: " + urlTextToVerify, e);
